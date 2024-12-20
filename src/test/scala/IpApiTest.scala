@@ -1,6 +1,6 @@
-package com.ipquery.ipapi
+package com.ipqwery.ipapi
 
-class IpApiTest
+import org.scalatest.funsuite.AnyFunSuite
 
 class IpApiTest extends AnyFunSuite:
   test("IpApi.QueryOwnIP") {

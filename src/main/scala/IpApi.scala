@@ -1,4 +1,4 @@
-package com.ipquery.ipapi
+package com.ipqwery.ipapi
 
 import sttp.client4.quick.*
 import sttp.client4.Response
@@ -15,7 +15,7 @@ case class ISPInfo(
 
 case class LocationInfo(
   country:      Option[String],
-  country_code:  Option[String],
+  country_code: Option[String],
   city:         Option[String],
   state:        Option[String],
   zipcode:      Option[String],
@@ -45,8 +45,8 @@ object CirceIntegration:
   def parseJson(json: String): Either[io.circe.Error, IPInfo] =
     decode[IPInfo](json)
 
-object main:
-  def QueryOwnIP(): Either[String, String] =
+object IpApi:
+  def queryOwnIP(): Either[String, String] =
     val response: Response[String] = quickRequest
       .get(uri"$BaseURL/")
       .send()
@@ -57,7 +57,7 @@ object main:
       Left(s"Error: ${response.statusText}")
     }
 
-  def QueryIP(ip: String): Either[String, IPInfo] =
+  def queryIP(ip: String): Either[String, IPInfo] =
     val response: Response[String] = quickRequest
       .get(uri"$BaseURL/$ip")
       .send()
@@ -67,7 +67,7 @@ object main:
       case Left(error) => Left(s"Failed to parse JSON: $error")
 
   // TODO => Make it return: Either[String, List[IPInfo]]
-  def QueryBulkIP(ips: List[String]): Unit =
+  def queryBulkIP(ips: List[String]): Unit =
     val ip_list = ips.mkString(",")
     val response: Response[String] = quickRequest
       .get(uri"$BaseURL/$ip_list")
